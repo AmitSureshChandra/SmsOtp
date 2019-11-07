@@ -71,7 +71,7 @@ public class Controller implements Initializable {
         if (flag)
         {
             long nowTime = Calendar.getInstance().getTimeInMillis();
-            if(txtotp.getText.equals(otp)
+            if(txtotp.getText().equals(otp)
                {
                     if (nowTime-time_send <= 120000)
                         {
