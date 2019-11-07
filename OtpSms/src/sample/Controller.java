@@ -23,6 +23,7 @@ public class Controller implements Initializable {
 
     boolean flag = false;
     long time_send ;
+    String otp;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,12 +48,12 @@ public class Controller implements Initializable {
     }
 
     private void sendOtp(String text) {
-
+        otp = generateOtp()+"";
         try {
             HttpResponse response = (HttpResponse) Unirest.post("https://www.fast2sms.com/dev/bulk")
                     .header("authorization", "9hkQLBXsCHiFI0Ym7yVJ5Mad6zSNAGe4UlDKwRjP3f1xcTWZnEJz2PTOMsRrIAdBXK5a4fEDZxiqQGt1")
                     .header("Content-Type", "application/x-www-form-urlencoded")
-                    .body("sender_id=FSTSMS&message=OTP%20for%20MLT%20System%20is%20"+generateOtp()+"&language=english&route=p&numbers="+txtphone.getText())
+                    .body("sender_id=FSTSMS&message=OTP%20for%20MLT%20System%20is%20"+otp+"&language=english&route=p&numbers="+txtphone.getText())
 
                     //  +"&variables={AA}&variables_values="+generateOtp())
                     .asString();
@@ -70,18 +71,26 @@ public class Controller implements Initializable {
         if (flag)
         {
             long nowTime = Calendar.getInstance().getTimeInMillis();
-            if (nowTime-time_send <= 120000)
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION,number +" has been varified");
-                flag = false;
-                alert.showAndWait();
-            }
-            else
-            {
-                Alert alert = new Alert(Alert.AlertType.WARNING,"OTP has been expired ... pls send otp again");
-                flag = false;
-                alert.showAndWait();
-            }
+            if(txtotp.getText.equals(otp)
+               {
+                    if (nowTime-time_send <= 120000)
+                        {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION,number +" has been varified");
+                            flag = false;
+                            alert.showAndWait();
+                        }
+                        else
+                        {
+                            Alert alert = new Alert(Alert.AlertType.WARNING,"OTP has been expired ... pls send otp again");
+                            flag = false;
+                            alert.showAndWait();
+                        }
+               }
+                else
+               {
+                            Alert alert = new Alert(Alert.AlertType.WARNING,"Wrong OTP");
+                            alert.showAndWait();
+               }
 
         }
         else
